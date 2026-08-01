@@ -40,6 +40,7 @@
 #include "components/fs/FS.h"
 #include "drivers/Spi.h"
 #include "drivers/SpiMaster.h"
+#include "components/whiterose/WhiteRoseController.h"
 #include "drivers/SpiNorFlash.h"
 #include "drivers/St7789.h"
 #include "drivers/TwiMaster.h"
@@ -370,6 +371,7 @@ Pinetime::Controllers::AlarmController alarmController {dateTimeController};
 #endif
 Pinetime::Controllers::TouchHandler touchHandler;
 Pinetime::Controllers::ButtonHandler buttonHandler;
+Pinetime::Controllers::WhiteRoseController whiteRoseController {dateTimeController, fs};
 Pinetime::Controllers::BrightnessController brightnessController {};
 
 Pinetime::Applications::DisplayApp displayApp(lcd,
@@ -388,6 +390,7 @@ Pinetime::Applications::DisplayApp displayApp(lcd,
 #endif
                                               stopWatchController,
                                               alarmController,
+                                              whiteRoseController,
                                               brightnessController,
                                               touchHandler,
                                               fs,
@@ -405,6 +408,8 @@ Pinetime::System::SystemTask systemTask(spi,
 #endif
                                         stopWatchController,
                                         alarmController,
+                                        whiteRoseController,
+                                        motorController,
                                         watchdog,
                                         notificationManager,
                                         heartRateSensor,
